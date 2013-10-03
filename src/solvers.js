@@ -32,7 +32,9 @@ window.countNRooksSolutions = function(n){
   // The number of permissible permutations on this array, and thus the number of solutions to the n-rooks problem, is equal to factorial(n).
 
   // This represents an O(n) solution to this problem, which we believe is the maximally efficient solution to this problem.
-  // We did this for America, God shed his grace on thee. 
+  // 
+  // We did this for America, God shed His grace on thee. 
+  //
 
   var product = 1;
   var factorial = function(m){
@@ -143,23 +145,18 @@ window.countNQueensSolutions = function(n){
 
   var queensBacktrack = function(row){
     for(var col = 0; col < n; col++){
-      var currentBoard = JSON.stringify(board.rows());
-      // if (col > 0) board.rows()[row][col-1] = 0;
       board.rows()[row][col] = 1;
       if(! board.hasAnyQueensConflicts()){
         if (row === (n-1)){
           solutionCount++;
           board.rows()[row][col] = 0;
-          if (col === (n-1)) return;
         }
         else {
-          queensBacktrack(row+1);  // set return value
+          queensBacktrack(row+1);
           board.rows()[row][col] = 0;
-          if (col === (n-1)) return;
         }
       } else{
         board.rows()[row][col] = 0;
-        if(col === (n-1)) return;
       }   
     }
   }; 
