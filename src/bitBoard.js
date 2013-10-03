@@ -13,21 +13,17 @@ var makeBBoard = function(n){
   instance.majorD = function(row, val){
     return colTable[val] - row;
   }
-
   instance.minorD = function(row, val){
     return colTable[val] + row;
   }
 
   instance.majorDiagCrumbs = {};
-
   for(var i = (- 1 * n ) + 1; i < n; i++){
-    majorDiagCrumbs[i] = false;
+    instance.majorDiagCrumbs[i] = false;
   }
-
   instance.minorDiagCrumbs = {};
-
   for(var i = 0; i < 2 * n - 1 ; i++){
-    minorDiagCrumbs[i] = false;
+    instance.minorDiagCrumbs[i] = false;
   }
 
   instance.hasAnyColConflicts = function(){
@@ -69,7 +65,7 @@ var makeBBoard = function(n){
     return /*this.hasAnyRowConflicts() ||*/ this.hasAnyColConflicts();
   }
 
-  instance.hasAnyQueenConflicts = function(){
+  instance.hasAnyQueensConflicts = function(){
     return this.hasAnyRooksConflicts() || 
            this.hasAnyMajorDiagonalConflicts() || 
            this.hasAnyMinorDiagonalConflicts();
