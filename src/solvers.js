@@ -54,7 +54,58 @@ window.countNRooksSolutions = function(n){
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n){
-  var solution = undefined; //fixme
+
+  // uses a constructive solution
+  // see http://en.wikipedia.org/wiki/Eight_queens_puzzle
+  // Step 1) first build a permutations array as described above in the comment to findNRooksSolution(), adhering to the explicit solution given in the article above =
+  // Step 2) then construct a board from this array
+
+  // Step 1: Building a permutations array
+  //  - Define the properties of a permutations array satisfying the N Queens problem
+  //  - Give the explicit form for each of these cases: 
+  //  if n is even:
+  //    if n is not 2 mod 6
+  //      [1,3,...,n-1,0,2,...,n-2]
+  //    else if n is 2 mod 6
+  //      first half of array (*):  [ (n/2 - 1) (mod n), (n/2 + 1) (mod n), ... ,     ],  
+  //      second half of array: ith entry will be  (n-1) -  *[n-1-i]  
+  //  if n is odd
+  //    return n-1 solution with queen at [n-1][n-1]
+  var solution = undefined; 
+
+  var buildPermArray = function(n){
+    if (n === 2 || n === 3) return undefined;
+    if (n === 0) return [];
+    var perm = [];
+    if (n % 2) {
+      perm = buildPermArray(n-1);
+      perm[n-1] = n-1;
+      return perm;
+    } else if ( (n % 6) !== 2){
+      for (var i = 0; i < n/2; i++){
+        perm[i]    = 2*i + 1;
+        perm[n/2+i]= 2*i;
+      }
+    } else { // n must be 2 mod 6
+      for (var i = 0; i < n/2; i++){
+        perm[i]    = (n/2 - 1 + 2*i) % n;
+        perm[n-1-i]= n - 1 - perm[i];
+      }
+    }
+    return perm;
+  };
+
+  var buildMatrixFromPerm = function(perm){
+
+  };
+
+  // Step 2: Construct a board from the permutations array
+  // helper method (re-use in countNQueens  ? ? )
+
+  var perms = buildPermArray(n);
+  if (perms !== undefined) {
+    solution = buildMatrixFromPerm(perms);
+  }
 
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution;
