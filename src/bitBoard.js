@@ -19,11 +19,11 @@ var makeBBoard = function(n){
 
   instance.majorDiagCrumbs = {};
   for(var i = (- 1 * n ) + 1; i < n; i++){
-    instance.majorDiagCrumbs[i] = false;
+    instance.majorDiagCrumbs[i] = 0;
   }
   instance.minorDiagCrumbs = {};
   for(var i = 0; i < 2 * n - 1 ; i++){
-    instance.minorDiagCrumbs[i] = false;
+    instance.minorDiagCrumbs[i] = 0;
   }
 
   instance.hasAnyColConflicts = function(){
@@ -42,27 +42,22 @@ var makeBBoard = function(n){
     return false;
   };
 
-  // instance.hasAnyRowConflicts = function(){
-  //   //do we need this?
-  // };
-
   instance.hasAnyMajorDiagonalConflicts = function(){
-
     for(var i = (- 1 * n ) + 1; i < n; i++){
-      if(instance.majorDiagCrumbs[i]) return true;
+      if(instance.majorDiagCrumbs[i]>1) return true;
     }
-    return false;
+    return false
   };
 
   instance.hasAnyMinorDiagonalConflicts = function(){
     for(var i = 0; i < 2 * n - 1 ; i++){
-      if(instance.minorDiagCrumbs[i]) return true;
+      if(instance.minorDiagCrumbs[i]>1) return true;
     }
     return false;
   }; 
 
   instance.hasAnyRooksConflicts = function(){
-    return /*this.hasAnyRowConflicts() ||*/ this.hasAnyColConflicts();
+    return this.hasAnyColConflicts();
   }
 
   instance.hasAnyQueensConflicts = function(){

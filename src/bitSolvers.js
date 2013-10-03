@@ -1,6 +1,7 @@
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n){
   if (n === 0) return 1;
+  if (n === 1) return 1;
   var solutionCount = 0; 
 
   //initialize n x n board
@@ -28,7 +29,6 @@ window.countNQueensSolutions = function(n){
   var queensBitTrack = function(row){
 
     for(var col = 0; col < n; col++){
-      debugger;
       board.arr[row] = 1 << col;
       setDiags(col, row, 1);
       if(! board.hasAnyQueensConflicts()){
@@ -37,7 +37,6 @@ window.countNQueensSolutions = function(n){
           board.arr[row] = 0;
           setDiags(col, row, -1);      
         } else {
-          // setDiags(col, row, true);
           queensBitTrack(row+1);
           board.arr[row] = 0;
           setDiags(col, row, -1);      
@@ -45,8 +44,7 @@ window.countNQueensSolutions = function(n){
       } else{
         board.arr[row] = 0;
         setDiags(col, row, -1);      
-        //board.rows()[row][col] = 0;
-      }   
+        }   
     }
   }; 
 
