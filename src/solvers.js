@@ -74,7 +74,7 @@ window.findNQueensSolution = function(n){
   var solution = undefined; 
 
   var buildPermArray = function(n){
-    if (n === 2 || n === 3) return undefined;
+    if (n === 2 || n === 3) return n;
     if (n === 0) return [];
     var perm = [];
     if (n % 2) {
@@ -96,16 +96,21 @@ window.findNQueensSolution = function(n){
   };
 
   var buildMatrixFromPerm = function(perm){
-
+    if (!Array.isArray(perm)) return new Board({n:perm}).rows();
+    var n = perm.length;
+    var board = new Board({n:n});
+    var rows = board.rows();
+    for (var i = 0; i < n; i++){
+      rows[i][perm[i]] = 1;
+    }
+    return rows;
   };
 
   // Step 2: Construct a board from the permutations array
   // helper method (re-use in countNQueens  ? ? )
 
   var perms = buildPermArray(n);
-  if (perms !== undefined) {
-    solution = buildMatrixFromPerm(perms);
-  }
+  solution = buildMatrixFromPerm(perms);
 
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution;
