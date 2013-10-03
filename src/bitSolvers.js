@@ -1,5 +1,5 @@
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
-window.countNQueensSolutions = function(n){
+window.countNQueensSolutionsB = function(n){
   if (n === 0) return 1;
   if (n === 1) return 1;
   var solutionCount = 0; 
